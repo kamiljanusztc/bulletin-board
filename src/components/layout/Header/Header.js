@@ -18,9 +18,8 @@ import styles from './Header.module.scss';
 
 const Component = ({className, children}) => (
   <div className={clsx(className, styles.root)}>
-    <AppBar position="static">
+    <AppBar className = {styles.appBar} position="static">
       <Toolbar className = {styles.menu}>
-
         <Typography variant="h6">
           <FontAwesomeIcon icon={faDiceD20} className = {styles.logo}/>
            B B O A R D
@@ -30,9 +29,6 @@ const Component = ({className, children}) => (
         </Typography>
         <Button color="inherit">
           <IconButton
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
             color="inherit"
           >
             <AccountCircle />

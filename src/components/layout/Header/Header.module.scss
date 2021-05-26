@@ -2,11 +2,15 @@
 
 .root {
 
-  .menu {
-    justify-content: space-between;
+  .appBar {
+    background: #ff9900;
 
-    .logo {
-      margin-right: 15px;
+    .menu {
+      justify-content: space-between;
+
+      .logo {
+        margin-right: 15px;
+      }
     }
   }
 }
