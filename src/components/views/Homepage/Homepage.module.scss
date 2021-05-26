@@ -1,0 +1,27 @@
+@import '../../../styles/settings.scss';
+
+.root {
+
+  .announcement {
+    text-align: center;
+    padding: 10px;
+    background-image: url("https://cdn.pixabay.com/photo/2017/08/10/04/14/blue-2618088_1280.jpg");
+    background-position-x:  40%;
+    background-position-y: 60%;
+    height: 200px;
+    color: #fff;
+    padding-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .announcementPhoto {
+    background-image: url("https://cdn.pixabay.com/photo/2015/05/29/19/18/bicycle-789648_1280.jpg");
+    background-position-x: 95%;
+    height: 200px;
+  }
+
+  .paper {
+    text-align: center;
+    padding: 10px;
+  }
+}

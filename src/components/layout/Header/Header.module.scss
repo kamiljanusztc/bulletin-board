@@ -1,0 +1,12 @@
+@import '../../../styles/settings.scss';
+
+.root {
+
+  .menu {
+    justify-content: space-between;
+
+    .logo {
+      margin-right: 15px;
+    }
+  }
+}
