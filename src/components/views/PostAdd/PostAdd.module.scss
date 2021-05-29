@@ -1,4 +1,26 @@
 @import '../../../styles/settings.scss';
 
-// .root {
-// }
+.root {
+  margin: 50px;
+
+  .paper {
+    padding: 0 20px 20px 20px;
+
+    .btnSave {
+      background: #ff9900;
+      margin-top: 20px;
+      height: 55px;
+      padding: 0 30px;
+      float: right;
+    }
+
+    .icon {
+      padding-right: 5px;
+    }
+  }
+
+  .textField {
+    margin-top: 20px;
+    margin-right: 20px;
+  }
+}

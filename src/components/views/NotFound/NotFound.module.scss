@@ -1,4 +1,50 @@
 @import '../../../styles/settings.scss';
 
-// .root {
-// }
+.root {
+  margin: 100px;
+
+  .paper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 300px;
+    margin: 0 auto;
+    color: #ff9900;
+
+    .icon {
+      margin-right: 10px;
+      font-size: 60px;
+    }
+  }
+
+  .link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    padding-top: 30px;
+
+    &:hover {
+      .linkTitle {
+        margin-right: 10px;
+        transition: 0.7s;
+      }
+
+      .arrow {
+        margin-right: 10px;
+        transition: 0.7s;
+      }
+    }
+
+    .arrow {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .linkTitle {
+      padding-left: 5px;
+      margin: 0;
+    }
+  }
+}

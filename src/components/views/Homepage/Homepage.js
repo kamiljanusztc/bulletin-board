@@ -26,7 +26,7 @@ const Component = ({className, posts}) => (
   <div className={clsx(className, styles.root)}>
     <div className={styles.announcement}>
       <h2 className={styles.annoucementTitle}>Do you want to announce something?</h2>
-      <Button
+      <Button href="#"
         variant="outlined"
         color="default"
         className={styles.btn}
@@ -34,14 +34,14 @@ const Component = ({className, posts}) => (
         <AddCircleOutlineIcon/>
         <p>Add new announcement</p>
       </Button>
-      <Link href="#">
+      <Link >
 
       </Link>
     </div>
     <div className={styles.card}>
       {posts.map(post => (
         <Card key={post.id} className={styles.cardItem}>
-          <CardActionArea>
+          <CardActionArea href={`/post/${post.id}`}>
             <CardMedia
               className={styles.image}
               image={post.image}

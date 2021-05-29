@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
 
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Typography from '@material-ui/core/Typography';
+
 // import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
@@ -10,7 +16,18 @@ import styles from './NotFound.module.scss';
 
 const Component = ({className, children}) => (
   <div className={clsx(className, styles.root)}>
-    <h2>NotFound</h2>
+    <Grid item xs={12}>
+      <div className={styles.paper}>
+        <ErrorOutlineIcon className={styles.icon}/>
+        <h1 className={styles.title}>Page not found</h1>
+      </div>
+      <Link className={styles.link}>
+        <ArrowBackIcon className={styles.arrow}/>
+        <Typography className={styles.linkTitle}>Home</Typography>
+      </Link>
+    </Grid>
+
+
     {children}
   </div>
 );
