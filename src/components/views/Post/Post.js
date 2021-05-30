@@ -15,12 +15,12 @@ import Link from '@material-ui/core/Link';
 import EditIcon from '@material-ui/icons/Edit';
 
 import { connect } from 'react-redux';
-import { getAll } from '../../../redux/postsRedux';
+import { getAll, getOnePost } from '../../../redux/postsRedux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
 import styles from './Post.module.scss';
 
-const Component = ({className, posts, match}) => {
+const Component = ({className, post, match}) => {
 
   // const post = posts.find(p => p.id === match.params.id);
   // console.log('find post', post);
@@ -30,52 +30,50 @@ const Component = ({className, posts, match}) => {
 
       <Grid container spacing={3} className={styles.postContainer}>
         <Grid item xs={12} sm={5} md={6}>
-          <img className={styles.postImage} src='https://cdn.pixabay.com/photo/2018/06/12/20/17/football-3471402_1280.jpg' alt='img'></img>
+          <img className={styles.postImage} src={post.image} alt="img"/>
         </Grid>
         <Grid item xs={12} sm={7} md={6} className={styles.content}>
           <div className={styles.titleWrapper}>
             <Typography gutterBottom variant="h5" component="h2" className={styles.title}>
-              {/* {post.title} */}
-              Ad title 01
+              {post.title}
             </Typography>
-            <div className={styles.postStatus}>Published</div>
-            <Link to={`/post/1/edit`} className={styles.postEdit}>
+            <Typography className={styles.postStatus}>
+              {post.status}
+            </Typography>
+            <Link href={`/post/${post.id}/edit`} className={styles.postEdit}>
               <Typography className={styles.editContent}>Edit</Typography>
               <EditIcon className={styles.editIcon}/>
             </Link>
           </div>
           <Typography variant="body2" color="textSecondary" component="p" className={styles.postDescription}>
-            {/* {post.content} */}
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+            {post.content}
           </Typography>
 
           <div className={styles.postContact}>
             <LocalOfferIcon className={styles.contactIcon}/>
             <Typography variant="body2" component="p" className={styles.author}>
-              200 $
+              {post.price} $
             </Typography>
           </div>
 
           <div className={styles.postContact}>
             <MailOutlineIcon className={styles.contactIcon}/>
             <Typography variant="body2" component="p" className={styles.author}>
-              john@doe.com
+              {post.email}
             </Typography>
           </div>
 
           <div className={styles.postContact}>
             <LocalPhoneIcon className={styles.contactIcon}/>
             <Typography variant="body2" component="p" className={styles.author}>
-              909909909
+              {post.phone}
             </Typography>
           </div>
 
           <div className={styles.postContact}>
             <LocationOnIcon className={styles.contactIcon}/>
             <Typography variant="body2" component="p" className={styles.author}>
-              Doe Street 9, London
+              {post.location}
             </Typography>
           </div>
 
@@ -90,10 +88,10 @@ const Component = ({className, posts, match}) => {
 
           <div className={styles.date}>
             <Typography variant="body2" color="textSecondary" component="p">
-              Publication: 2021.03.04
+              Publication: {post.datePublication}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              Updated: 2021.05.21
+              Updated: {post.dateLastUpdate}
             </Typography>
           </div>
 
@@ -114,7 +112,7 @@ Component.propTypes = {
   className: PropTypes.string,
   match: PropTypes.object,
   params: PropTypes.object,
-  posts: PropTypes.arrayOf(
+  post: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
       title: PropTypes.string,
@@ -131,12 +129,14 @@ Component.propTypes = {
   ),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, props) => ({
   posts: getAll(state),
+  post: getOnePost(state, props.match.params.id),
 });
 
 // const mapDispatchToProps = dispatch => ({
 //   someAction: arg => dispatch(reduxActionCreator(arg)),
+
 // });
 
 // const Container = connect(mapStateToProps, mapDispatchToProps)(Component);

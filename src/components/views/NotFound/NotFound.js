@@ -21,9 +21,9 @@ const Component = ({className, children}) => (
         <ErrorOutlineIcon className={styles.icon}/>
         <h1 className={styles.title}>Page not found</h1>
       </div>
-      <Link className={styles.link}>
+      <Link className={styles.link} href={`/`}>
         <ArrowBackIcon className={styles.arrow}/>
-        <Typography className={styles.linkTitle}>Home</Typography>
+        <Typography className={styles.linkTitle}>Homepage</Typography>
       </Link>
     </Grid>
 

@@ -1,8 +1,8 @@
 @import '../../../styles/settings.scss';
 
 .root {
-  max-width: 1281px;
-  margin: 0 auto;
+  max-width: 1280px;
+  margin: auto;
   padding-top: 40px;
 
   .postImage {
@@ -17,8 +17,12 @@
   .content {
     display: flex;
     flex-direction: column;
-    padding-left: 25px;
-    padding-right: 50px;
+    padding-left: 40px;
+    padding-right: 40px;
+
+    .icons {
+      padding-top: 40px;
+    }
 
     .postDescription {
       padding-bottom: 10px;
@@ -43,13 +47,15 @@
       display: flex;
 
       .postStatus {
-        color: #3dcc3d;
+        color: $color-main;
         padding: 10px 30px 0 0;
       }
 
       .postEdit {
         display: flex;
         flex-direction: row-reverse;
+        text-decoration: none;
+        cursor: pointer;
 
         .editIcon {
           margin: auto;
@@ -58,8 +64,7 @@
 
         .editContent {
           margin: auto;
-          font-size: 14px;
-          padding-left: 4px;
+          padding: 3px 0 0 4px;
         }
       }
 

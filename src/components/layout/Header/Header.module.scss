@@ -3,13 +3,24 @@
 .root {
 
   .appBar {
-    background: #ff9900;
+    background: $color-main;
 
     .menu {
       justify-content: space-between;
 
       .logo {
         margin-right: 15px;
+      }
+
+      .home {
+        color: $color-white;
+        text-decoration: none;
+      }
+
+      .login, .announcements {
+        text-decoration: none;
+        cursor: pointer;
+        color: $color-white;
       }
     }
   }
