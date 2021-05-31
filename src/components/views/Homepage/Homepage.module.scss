@@ -4,6 +4,12 @@
   max-width: 1280px;
   margin: auto;
 
+  .login {
+    text-decoration: none;
+    cursor: pointer;
+    color: $color-main;
+  }
+
   .announcement {
     text-align: center;
     color: $color-white;

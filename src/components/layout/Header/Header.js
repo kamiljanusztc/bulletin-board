@@ -10,12 +10,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiceD20 } from '@fortawesome/free-solid-svg-icons';
 import Link from '@material-ui/core/Link';
 
-// import { connect } from 'react-redux';
+import {Switcher} from '../../common/Switcher/Switcher';
+
+import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
 import styles from './Header.module.scss';
 
-const Component = ({className, children}) => (
+const Component = ({className, user}) => (
   <div className={clsx(className, styles.root)}>
     <AppBar className = {styles.appBar} position="static">
       <Toolbar className = {styles.menu}>
@@ -23,48 +25,56 @@ const Component = ({className, children}) => (
           <FontAwesomeIcon icon={faDiceD20} className={styles.logo}/>
            B B O A R D
         </Link>
-        <Link className={styles.announcements} href={`/`}>
-          Announcements
-        </Link>
-        <select
-        // value={this.state.value} onChange={this.handleChange}
-        >
-          <option value="Guest">Guest</option>
-          <option value="User">User</option>
-          <option value="Admin">Admin</option>
-        </select>
-        <Link color="inherit" href="https://google.com" className={styles.login}>
-          <IconButton
-            color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
-          Login
-        </Link>
+        <Switcher/>
+        {user.active === true
+          ?
+          <div>
+            <Link className={styles.announcements} href={`/`}>
+            Announcements
+            </Link>
+            <Link color="inherit" href={`/`} className={styles.login}>
+              <IconButton
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              Logout
+            </Link>
+          </div>
+          :
+          <Link color="inherit" href="https://google.com" className={styles.login}>
+            <IconButton
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            Login
+          </Link>
+        }
       </Toolbar>
     </AppBar>
 
-    {children}
   </div>
 );
 
 Component.propTypes = {
-  children: PropTypes.node,
   className: PropTypes.string,
+  setIsLogged: PropTypes.func,
+  user: PropTypes.object,
 };
 
-// const mapStateToProps = state => ({
-//   someProp: reduxSelector(state),
-// });
+const mapStateToProps = state => ({
+  user: state.user,
+});
 
 // const mapDispatchToProps = dispatch => ({
 //   someAction: arg => dispatch(reduxActionCreator(arg)),
 // });
 
-// const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
+const Container = connect(mapStateToProps)(Component);
 
 export {
-  Component as Header,
-  // Container as Header,
+  // Component as Header,
+  Container as Header,
   Component as HeaderComponent,
 };

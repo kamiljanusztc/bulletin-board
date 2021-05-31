@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import Link from '@material-ui/core/Link';
 
 import { connect } from 'react-redux';
 import { getAll, fetchPublished } from '../../../redux/postsRedux';
@@ -27,20 +28,27 @@ class Component extends React.Component {
   }
 
   render() {
-    const {className, posts} = this.props;
+    const {className, posts, user} = this.props;
 
     return (
       <div className={clsx(className, styles.root)}>
         <div className={styles.announcement}>
           <h2 className={styles.annoucementTitle}>Would you like to announce something?</h2>
-          <Button href={`/post/add`}
-            variant="outlined"
-            color="default"
-            className={styles.btn}
-          >
-            <AddCircleOutlineIcon/>
-            <p>Add new announcement</p>
-          </Button>
+          {user.active === true
+            ?
+            <Button href={`/post/add`}
+              variant="outlined"
+              color="default"
+              className={styles.btn}
+            >
+              <AddCircleOutlineIcon/>
+              <p>Add new announcement</p>
+            </Button>
+            :
+            <Link color="inherit" href="https://google.com" className={styles.login}>
+              Sign in or create an account
+            </Link>
+          }
         </div>
         <div className={styles.card}>
           {posts.map(post => (
@@ -83,6 +91,9 @@ Component.propTypes = {
   className: PropTypes.string,
   fetchPublishedPosts: PropTypes.func,
   posts: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  statusTrue: PropTypes.bool,
+  state: PropTypes.bool,
+  user: PropTypes.object,
   // posts: PropTypes.arrayOf(
   //   PropTypes.shape({
   //     id: PropTypes.number,
@@ -102,6 +113,7 @@ Component.propTypes = {
 
 const mapStateToProps = state => ({
   posts: getAll(state),
+  user: state.user,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -109,7 +121,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
-// const Container = connect(mapStateToProps)(Component);
 
 export {
   // Component as Homepage,
