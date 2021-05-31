@@ -15,132 +15,130 @@ import Link from '@material-ui/core/Link';
 import EditIcon from '@material-ui/icons/Edit';
 
 import { connect } from 'react-redux';
-import { getAll, getOnePost } from '../../../redux/postsRedux';
+import { getOnePost, fetchPost } from '../../../redux/postsRedux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
 import styles from './Post.module.scss';
 
-const Component = ({className, post, match}) => {
+class Component extends React.Component {
 
-  // const post = posts.find(p => p.id === match.params.id);
-  // console.log('find post', post);
+  componentDidMount() {
+    const { fetchOnePost } = this.props;
+    fetchOnePost();
+  }
 
-  return (
-    <div className={clsx(className, styles.root)}>
+  render() {
+    const {className, post} = this.props;
 
-      <Grid container spacing={3} className={styles.postContainer}>
-        <Grid item xs={12} sm={5} md={6}>
-          <img className={styles.postImage} src={post.image} alt="img"/>
-        </Grid>
-        <Grid item xs={12} sm={7} md={6} className={styles.content}>
-          <div className={styles.titleWrapper}>
-            <Typography gutterBottom variant="h5" component="h2" className={styles.title}>
-              {post.title}
+    return (
+      <div className={clsx(className, styles.root)}>
+        <Grid container spacing={3} className={styles.postContainer}>
+          <Grid item xs={12} sm={5} md={6}>
+            <img className={styles.postImage} src={post.photo} alt="img"/>
+          </Grid>
+          <Grid item xs={12} sm={7} md={6} className={styles.content}>
+            <div className={styles.titleWrapper}>
+              <Typography gutterBottom variant="h5" component="h2" className={styles.title}>
+                {post.title}
+              </Typography>
+              <Typography className={styles.postStatus}>
+                {post.status}
+              </Typography>
+              <Link href={`/post/${post.id}/edit`} className={styles.postEdit}>
+                <Typography className={styles.editContent}>Edit</Typography>
+                <EditIcon className={styles.editIcon}/>
+              </Link>
+            </div>
+            <Typography variant="body2" color="textSecondary" component="p" className={styles.postDescription}>
+              {post.content}
             </Typography>
-            <Typography className={styles.postStatus}>
-              {post.status}
-            </Typography>
-            <Link href={`/post/${post.id}/edit`} className={styles.postEdit}>
-              <Typography className={styles.editContent}>Edit</Typography>
-              <EditIcon className={styles.editIcon}/>
-            </Link>
-          </div>
-          <Typography variant="body2" color="textSecondary" component="p" className={styles.postDescription}>
-            {post.content}
-          </Typography>
 
-          <div className={styles.postContact}>
-            <LocalOfferIcon className={styles.contactIcon}/>
-            <Typography variant="body2" component="p" className={styles.author}>
-              {post.price} $
-            </Typography>
-          </div>
+            <div className={styles.postContact}>
+              <LocalOfferIcon className={styles.contactIcon}/>
+              <Typography variant="body2" component="p" className={styles.author}>
+                {post.price} $
+              </Typography>
+            </div>
 
-          <div className={styles.postContact}>
-            <MailOutlineIcon className={styles.contactIcon}/>
-            <Typography variant="body2" component="p" className={styles.author}>
-              {post.email}
-            </Typography>
-          </div>
+            <div className={styles.postContact}>
+              <MailOutlineIcon className={styles.contactIcon}/>
+              <Typography variant="body2" component="p" className={styles.author}>
+                {post.email}
+              </Typography>
+            </div>
 
-          <div className={styles.postContact}>
-            <LocalPhoneIcon className={styles.contactIcon}/>
-            <Typography variant="body2" component="p" className={styles.author}>
-              {post.phone}
-            </Typography>
-          </div>
+            <div className={styles.postContact}>
+              <LocalPhoneIcon className={styles.contactIcon}/>
+              <Typography variant="body2" component="p" className={styles.author}>
+                {post.phone}
+              </Typography>
+            </div>
 
-          <div className={styles.postContact}>
-            <LocationOnIcon className={styles.contactIcon}/>
-            <Typography variant="body2" component="p" className={styles.author}>
-              {post.location}
-            </Typography>
-          </div>
+            <div className={styles.postContact}>
+              <LocationOnIcon className={styles.contactIcon}/>
+              <Typography variant="body2" component="p" className={styles.author}>
+                {post.location}
+              </Typography>
+            </div>
 
-          <div className={styles.icons}>
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton aria-label="share">
-              <ShareIcon />
-            </IconButton>
-          </div>
+            <div className={styles.icons}>
+              <IconButton aria-label="add to favorites">
+                <FavoriteIcon />
+              </IconButton>
+              <IconButton aria-label="share">
+                <ShareIcon />
+              </IconButton>
+            </div>
 
-          <div className={styles.date}>
-            <Typography variant="body2" color="textSecondary" component="p">
+            <div className={styles.date}>
+              <Typography variant="body2" color="textSecondary" component="p">
               Publication: {post.datePublication}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
               Updated: {post.dateLastUpdate}
-            </Typography>
-          </div>
-
-
-
+              </Typography>
+            </div>
+          </Grid>
         </Grid>
-      </Grid>
-
-
-
-
-
-    </div>
-  );
-};
+      </div>
+    );
+  }
+}
 
 Component.propTypes = {
   className: PropTypes.string,
   match: PropTypes.object,
   params: PropTypes.object,
-  post: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      title: PropTypes.string,
-      content: PropTypes.string,
-      datePublication: PropTypes.string,
-      dateLastUpdate: PropTypes.string,
-      email: PropTypes.string,
-      status: PropTypes.string,
-      image: PropTypes.string,
-      price: PropTypes.number,
-      phone: PropTypes.string,
-      location: PropTypes.string,
-    })
-  ),
+  fetchOnePost: PropTypes.func,
+  post: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  // post: PropTypes.arrayOf(
+  //   PropTypes.shape({
+  //     id: PropTypes.number,
+  //     title: PropTypes.string,
+  //     content: PropTypes.string,
+  //     datePublication: PropTypes.string,
+  //     dateLastUpdate: PropTypes.string,
+  //     email: PropTypes.string,
+  //     status: PropTypes.string,
+  //     image: PropTypes.string,
+  //     price: PropTypes.number,
+  //     phone: PropTypes.string,
+  //     location: PropTypes.string,
+  //   })
+  // ),
 };
 
 const mapStateToProps = (state, props) => ({
-  posts: getAll(state),
-  post: getOnePost(state, props.match.params.id),
+  post: getOnePost(state),
 });
 
-// const mapDispatchToProps = dispatch => ({
-//   someAction: arg => dispatch(reduxActionCreator(arg)),
+const mapDispatchToProps = (dispatch, props) => ({
+  fetchOnePost: () => dispatch(fetchPost(props.match.params.id)),
 
-// });
+});
 
-// const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
-const Container = connect(mapStateToProps)(Component);
+const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
+// const Container = connect(mapStateToProps)(Component);
 
 export {
   // Component as Post,
