@@ -2,7 +2,12 @@ import Axios from 'axios';
 
 /* selectors */
 export const getAll = ({posts}) => posts.data;
-export const getOnePost = ({posts}, id) => posts.data.find(post => post.id === id);
+export const getPost = ({posts}) => posts.onePost;
+export const getOnePost = ({posts}, id) => {
+  posts.data.filter(post => post._id === id);
+};
+
+export const getLoading = ({ posts }) => posts.loading;
 
 /* action name creator */
 const reducerName = 'posts';
@@ -12,6 +17,7 @@ const createActionName = name => `app/${reducerName}/${name}`;
 const FETCH_START = createActionName('FETCH_START');
 const FETCH_SUCCESS = createActionName('FETCH_SUCCESS');
 const FETCH_ERROR = createActionName('FETCH_ERROR');
+
 const FETCH_ONE_POST = createActionName('FETCH_ONE_POST');
 const ADD_POST = createActionName('ADD_POST');
 const EDIT_POST = createActionName('EDIT_POST');
@@ -20,8 +26,8 @@ const EDIT_POST = createActionName('EDIT_POST');
 export const fetchStarted = payload => ({ payload, type: FETCH_START });
 export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
-export const fetchOnePost = payload => ({ payload, type: FETCH_ONE_POST });
 
+export const fetchOnePost = payload => ({ payload, type: FETCH_ONE_POST });
 export const addPost = payload => ({ payload, type: ADD_POST });
 export const editPost = payload => ({ payload, type: EDIT_POST });
 
@@ -49,6 +55,7 @@ export const fetchPublished = () => {
 export const fetchPost = (id) => {
   return (dispatch, getState) => {
     dispatch(fetchStarted());
+    console.log('getState', getState());
 
     Axios
       .get(`http://localhost:8000/api/posts/${id}`)
@@ -58,6 +65,36 @@ export const fetchPost = (id) => {
       .catch(err => {
         dispatch(fetchError(err.message || true));
       });
+  };
+};
+
+export const fetchAddPost = (post) => {
+  return (dispatch, getState) => {
+    dispatch(fetchStarted());
+    Axios
+      .post('http://localhost:8000/api/posts/add', post, {headers: {'Content-Type': 'multipart/form-data'}})
+      .then(res => {
+        dispatch(addPost(post));
+      })
+      .catch(err => {
+        dispatch(fetchError(err.message || true));
+      });
+
+  };
+};
+
+export const fetchEditPost = (post, id) => {
+  return (dispatch, getState) => {
+    dispatch(fetchStarted());
+    Axios
+      .put(`http://localhost:8000/api/posts/${id}/edit`, post, {headers: {'Content-Type': 'multipart/form-data'}})
+      .then(res => {
+        dispatch(editPost(post));
+      })
+      .catch(err => {
+        dispatch(fetchError(err.message || true));
+      });
+
   };
 };
 
@@ -92,18 +129,44 @@ export const reducer = (statePart = [], action = {}) => {
         },
       };
     }
+    case FETCH_ONE_POST: {
+      return {
+        ...statePart,
+        loading: {
+          active: false,
+          error: false,
+        },
+        onePost: action.payload,
+      };
+    }
     case ADD_POST: {
       return {
         ...statePart,
+        loading: {
+          active: false,
+          error: false,
+          changePost: true,
+        },
         data: [...statePart.data, action.payload],
       };
     }
     case EDIT_POST: {
-      return {
+      const statePartIndex = statePart.data.findIndex(post => post._id === action.payload._id);
+      statePart.data.splice(statePartIndex, 1, action.payload);
+      console.log('action.payload', action.payload);
 
+      return {
+        ...statePart,
+        loading: {
+          active: false,
+          error: false,
+          changePost: true,
+        },
+        data: [...statePart.data],
       };
     }
     default:
       return statePart;
   }
 };
+

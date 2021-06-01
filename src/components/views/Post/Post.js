@@ -15,8 +15,7 @@ import Link from '@material-ui/core/Link';
 import EditIcon from '@material-ui/icons/Edit';
 
 import { connect } from 'react-redux';
-import { getOnePost, fetchPost } from '../../../redux/postsRedux';
-// import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
+import { getPost, fetchPost } from '../../../redux/postsRedux';
 
 import styles from './Post.module.scss';
 
@@ -28,56 +27,56 @@ class Component extends React.Component {
   }
 
   render() {
-    const {className, post} = this.props;
+    const {className, postById, user} = this.props;
 
     return (
       <div className={clsx(className, styles.root)}>
         <Grid container spacing={3} className={styles.postContainer}>
           <Grid item xs={12} sm={5} md={6}>
-            <img className={styles.postImage} src={post.photo} alt="img"/>
+            <img className={styles.postImage}
+              src={postById.photo}
+              alt="img"/>
           </Grid>
-          <Grid item xs={12} sm={7} md={6} className={styles.content}>
+          <Grid item xs={12} sm={7} md={6} className={styles.text}>
             <div className={styles.titleWrapper}>
               <Typography gutterBottom variant="h5" component="h2" className={styles.title}>
-                {post.title}
+                {postById.title}
               </Typography>
-              <Typography className={styles.postStatus}>
-                {post.status}
-              </Typography>
-              <Link href={`/post/${post.id}/edit`} className={styles.postEdit}>
-                <Typography className={styles.editContent}>Edit</Typography>
-                <EditIcon className={styles.editIcon}/>
-              </Link>
+              <div className={styles.postStatusWrapper}>
+                <Typography className={styles.postStatus}>
+                  {postById.status}
+                </Typography>
+              </div>
             </div>
             <Typography variant="body2" color="textSecondary" component="p" className={styles.postDescription}>
-              {post.content}
+              {postById.content}
             </Typography>
 
             <div className={styles.postContact}>
               <LocalOfferIcon className={styles.contactIcon}/>
               <Typography variant="body2" component="p" className={styles.author}>
-                {post.price} $
+                {postById.price}
               </Typography>
             </div>
 
             <div className={styles.postContact}>
               <MailOutlineIcon className={styles.contactIcon}/>
               <Typography variant="body2" component="p" className={styles.author}>
-                {post.email}
+                {postById.email}
               </Typography>
             </div>
 
             <div className={styles.postContact}>
               <LocalPhoneIcon className={styles.contactIcon}/>
               <Typography variant="body2" component="p" className={styles.author}>
-                {post.phone}
+                {postById.phone}
               </Typography>
             </div>
 
             <div className={styles.postContact}>
               <LocationOnIcon className={styles.contactIcon}/>
               <Typography variant="body2" component="p" className={styles.author}>
-                {post.location}
+                {postById.location}
               </Typography>
             </div>
 
@@ -92,12 +91,21 @@ class Component extends React.Component {
 
             <div className={styles.date}>
               <Typography variant="body2" color="textSecondary" component="p">
-              Publication: {post.datePublication}
+              Publication: {postById.datePublication}
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
-              Updated: {post.dateLastUpdate}
+              Updated: {postById.dateLastUpdate}
               </Typography>
             </div>
+            {user.active === true
+              ?
+              <Link href={`/post/${postById._id}/edit`} className={styles.postEdit}>
+                <Typography className={styles.editContent}>Edit</Typography>
+                <EditIcon className={styles.editIcon}/>
+              </Link>
+              :
+              null
+            }
           </Grid>
         </Grid>
       </div>
@@ -107,10 +115,12 @@ class Component extends React.Component {
 
 Component.propTypes = {
   className: PropTypes.string,
+  props: PropTypes.object,
   match: PropTypes.object,
   params: PropTypes.object,
+  postById: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   fetchOnePost: PropTypes.func,
-  post: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  user: PropTypes.object,
   // post: PropTypes.arrayOf(
   //   PropTypes.shape({
   //     id: PropTypes.number,
@@ -129,7 +139,8 @@ Component.propTypes = {
 };
 
 const mapStateToProps = (state, props) => ({
-  post: getOnePost(state),
+  postById: getPost(state),
+  user: state.user,
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
@@ -138,7 +149,6 @@ const mapDispatchToProps = (dispatch, props) => ({
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
-// const Container = connect(mapStateToProps)(Component);
 
 export {
   // Component as Post,

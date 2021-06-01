@@ -5,6 +5,32 @@
   margin: auto;
   padding-top: 40px;
 
+  .postStatusWrapper {
+    background: $color-main;
+    border-radius: 20px;
+    margin: 20px 0;
+    width: 130px;
+
+    .postStatus {
+      color: $color-white;
+      text-align: center;
+    }
+  }
+
+  .postEdit {
+    display: flex;
+    flex-direction: row-reverse;
+    text-decoration: none;
+    cursor: pointer;
+    color: $color-main;
+    float: left;
+    padding-top: 10px;
+
+    .editIcon {
+      width: 15px;
+    }
+  }
+
   .postImage {
     width: 100%;
     height: auto;
@@ -14,15 +40,19 @@
     float: right;
   }
 
+  .icons {
+    padding-top: 40px;
+  }
+
+  .contactIcon {
+    width: 18px;
+  }
+
   .content {
     display: flex;
     flex-direction: column;
     padding-left: 40px;
     padding-right: 40px;
-
-    .icons {
-      padding-top: 40px;
-    }
 
     .postDescription {
       padding-bottom: 10px;
@@ -33,10 +63,6 @@
       flex-direction: row;
       padding: 5px 0;
 
-      .contactIcon {
-        width: 18px;
-      }
-
       .author {
         font-size: 15px;
         padding-left: 6px;
@@ -45,28 +71,6 @@
 
     .titleWrapper {
       display: flex;
-
-      .postStatus {
-        color: $color-main;
-        padding: 10px 30px 0 0;
-      }
-
-      .postEdit {
-        display: flex;
-        flex-direction: row-reverse;
-        text-decoration: none;
-        cursor: pointer;
-
-        .editIcon {
-          margin: auto;
-          width: 15px;
-        }
-
-        .editContent {
-          margin: auto;
-          padding: 3px 0 0 4px;
-        }
-      }
 
       .title {
         flex: auto;

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import uniqid from 'uniqid';
 
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -32,56 +33,65 @@ class Component extends React.Component {
 
     return (
       <div className={clsx(className, styles.root)}>
-        <div className={styles.announcement}>
-          <h2 className={styles.annoucementTitle}>Would you like to announce something?</h2>
-          {user.active === true
-            ?
-            <Button href={`/post/add`}
-              variant="outlined"
-              color="default"
-              className={styles.btn}
-            >
-              <AddCircleOutlineIcon/>
-              <p>Add new announcement</p>
-            </Button>
-            :
-            <Link color="inherit" href="https://google.com" className={styles.login}>
-              Sign in or create an account
-            </Link>
-          }
-        </div>
-        <div className={styles.card}>
-          {posts.map(post => (
-            <Card key={post.id} className={styles.cardItem}>
-              <CardActionArea href={`/post/${post._id}`}>
-                <CardMedia
-                  className={styles.image}
-                  image={post.image}
-                  component="img"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {post.title}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary" component="p">
-                    {post.content}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <IconButton aria-label="add to favorites">
-                  <FavoriteIcon />
-                </IconButton>
-                <IconButton aria-label="share">
-                  <ShareIcon />
-                </IconButton>
-                <Button size="small" color="primary">
-                  Learn More
-                </Button>
-              </CardActions>
-            </Card>
-          ))}
-        </div>
+        {user.active === true
+          ?
+          <div>
+            <div className={styles.announcement}>
+              <h2 className={styles.annoucementTitle}>Would you like to announce something?</h2>
+              <Button href={`/post/add`}
+                variant="outlined"
+                color="default"
+                className={styles.btn}
+              >
+                <AddCircleOutlineIcon/>
+                <p>Add new announcement</p>
+              </Button>
+            </div>
+            <div className={styles.card}>
+              {posts.map(post => (
+                <Card key={post._id ? post._id : uniqid()}className={styles.cardItem}>
+                  <CardActionArea href={`/post/${post._id}`}>
+                    <CardMedia
+                      className={styles.image}
+                      image={post.photo}
+                      component="img"
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        {post.title}
+                      </Typography>
+                      <Typography variant="body2" color="textSecondary" component="p">
+                        {post.content}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <IconButton aria-label="add to favorites">
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="share">
+                      <ShareIcon />
+                    </IconButton>
+                    <Button size="small" color="primary">
+                    Learn More
+                    </Button>
+                  </CardActions>
+                </Card>
+              ))}
+            </div>
+          </div>
+          :
+          <div>
+            <div className={styles.announcement}>
+              <h2 className={styles.annoucementTitle}>Would you like to announce something?</h2>
+              <Link color="inherit" href="https://google.com" className={styles.login}>
+                Sign in or create an account
+              </Link>
+            </div>
+          </div>
+        }
+
+
       </div>
     );
   }
@@ -127,3 +137,4 @@ export {
   Container as Homepage,
   Component as HomepageComponent,
 };
+

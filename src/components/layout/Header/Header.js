@@ -10,8 +10,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiceD20 } from '@fortawesome/free-solid-svg-icons';
 import Link from '@material-ui/core/Link';
 
-import {Switcher} from '../../common/Switcher/Switcher';
-
 import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
@@ -25,7 +23,6 @@ const Component = ({className, user}) => (
           <FontAwesomeIcon icon={faDiceD20} className={styles.logo}/>
            B B O A R D
         </Link>
-        <Switcher/>
         {user.active === true
           ?
           <div>

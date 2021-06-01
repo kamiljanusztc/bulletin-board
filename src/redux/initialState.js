@@ -83,6 +83,13 @@ export const initialState = {
     loading: {
       active: false,
       error: false,
+      changePost: false,
     },
+    onePost: {
+
+    },
+  },
+  user: {
+    active: true,
   },
 };

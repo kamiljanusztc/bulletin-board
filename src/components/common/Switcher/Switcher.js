@@ -37,8 +37,8 @@ class Component extends React.Component {
         <select
           name="statusUser" id="isLogged"
           onChange={(event) => this.handleOnChange(event.target.value)}>
-          <option value="false">Guest</option>
           <option value="true">User</option>
+          <option value="false">Guest</option>
         </select>
       </div>
     );
