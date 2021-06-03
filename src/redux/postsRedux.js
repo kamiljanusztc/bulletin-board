@@ -89,7 +89,7 @@ export const fetchEditPost = (post, id) => {
     Axios
       .put(`http://localhost:8000/api/posts/${id}/edit`, post, {headers: {'Content-Type': 'multipart/form-data'}})
       .then(res => {
-        dispatch(editPost(post));
+        dispatch(editPost(post, id));
       })
       .catch(err => {
         dispatch(fetchError(err.message || true));

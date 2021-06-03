@@ -292,6 +292,8 @@ Component.propTypes = {
   addPost: PropTypes.func,
   editPost: PropTypes.func,
   loading: PropTypes.object,
+  match: PropTypes.object,
+  params: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
@@ -300,9 +302,9 @@ const mapStateToProps = state => ({
   loading: getLoading(state),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch, props) => ({
   addPost: (post) => dispatch(fetchAddPost(post)),
-  editPost: (post) => dispatch(fetchEditPost(post)),
+  editPost: (post) => dispatch(fetchEditPost(post, props.match.params.id)),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);

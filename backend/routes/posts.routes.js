@@ -151,9 +151,8 @@ router.put(`/posts/:id/edit`, upload.single('file'), async (req, res) => {
   }
   catch(err) {
     res.status(500).json(err);
+    console.error(err);
   }
 });
-
-
 
 module.exports = router;
