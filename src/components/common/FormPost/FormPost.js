@@ -292,8 +292,6 @@ Component.propTypes = {
   addPost: PropTypes.func,
   editPost: PropTypes.func,
   loading: PropTypes.object,
-  match: PropTypes.object,
-  params: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
