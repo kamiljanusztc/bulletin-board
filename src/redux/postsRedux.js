@@ -93,6 +93,7 @@ export const fetchEditPost = (post, id) => {
       })
       .catch(err => {
         dispatch(fetchError(err.message || true));
+        console.error(err);
       });
 
   };

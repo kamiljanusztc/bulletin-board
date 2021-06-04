@@ -39,6 +39,7 @@ router.get('/posts/:id', async (req, res) => {
   }
   catch(err) {
     res.status(500).json(err);
+    console.error(err);
   }
 });
 
@@ -93,6 +94,7 @@ router.post('/posts/add', upload.single('file'), async (req, res) => {
   }
   catch(err) {
     res.status(500).json(err);
+    console.error(err);
   }
 });
 
@@ -128,17 +130,17 @@ router.put(`/posts/:id/edit`, upload.single('file'), async (req, res) => {
       if(req.file !== undefined) {
         newNameFile = req.file.filename;
         const filePath = req.file.path;
-        // console.log('filePath',filePath);
+        console.log('filePath',filePath);
         fileNameExt = filePath.split('.').slice(-1)[0];
         if((fileNameExt !== 'jpg') && (fileNameExt !== 'png') && (fileNameExt !== 'gif') && (fileNameExt !== 'jpeg')) {
           throw new Error('Wrong format file');
         }
       }
 
-      const editedPost = await(Post.findById(req.body._id));
+      const editedPost = await (Post.findById(req.params.id));
       console.log('editedPost',editedPost);
       if(editedPost) {
-        const changedPost = await (Post.updateOne({ _id: req.body._id }, {$set: { title, text, author, status, created, updated, photo: newNameFile, price, phone, location }}));
+        const changedPost = await (Post.updateOne({ _id: req.params.id }, { $set: { title, text, author, status, updated, photo: newNameFile, price, phone, location } }));
         res.json(changedPost);
       }
       else {

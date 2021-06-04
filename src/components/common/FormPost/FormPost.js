@@ -86,7 +86,7 @@ class Component extends React.Component {
                       values.created = new Date().toISOString();
                       values.updated = values.created;
                       const formData = new FormData();
-                      for (let key of ['_id','title', 'text', 'price', 'photo', 'author', 'location', 'phone', 'status', 'created', 'updated']) {
+                      for (let key of ['title', 'text', 'price', 'photo', 'author', 'location', 'phone', 'status', 'created', 'updated']) {
                         formData.append(key, values[key]);
                       }
                       formData.append('file', values.file);
@@ -94,11 +94,12 @@ class Component extends React.Component {
                     } else {
                       values.updated = new Date().toISOString();
                       const formData = new FormData();
-                      for (let key of ['_id', 'title', 'text', 'price', 'photo', 'author', 'location', 'phone', 'status', 'created', 'updated']) {
+                      for (let key of ['title', 'text', 'price', 'photo', 'author', 'location', 'phone', 'status', 'created', 'updated']) {
                         formData.append(key, values[key]);
                       }
                       formData.append('file', values.file);
                       editPost(formData);
+                      console.log('formData check', formData);
                     }
                   }}
                   validationSchema={yup.object().shape({
@@ -302,7 +303,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch, props) => ({
   addPost: (post) => dispatch(fetchAddPost(post)),
-  editPost: (post) => dispatch(fetchEditPost(post, props.match.params.id)),
+  editPost: (post) => dispatch(fetchEditPost(post, props.id)),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
