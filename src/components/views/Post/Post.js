@@ -11,7 +11,7 @@ import LocalPhoneIcon from '@material-ui/icons/LocalPhone';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import Link from '@material-ui/core/Link';
+import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 
 import { connect } from 'react-redux';
@@ -99,7 +99,7 @@ class Component extends React.Component {
             </div>
             {user.active === true
               ?
-              <Link href={`/post/${postById._id}/edit`} className={styles.postEdit}>
+              <Link to={`/post/${postById._id}/edit`} className={styles.postEdit}>
                 <Typography className={styles.editContent}>Edit</Typography>
                 <EditIcon className={styles.editIcon}/>
               </Link>

@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import Link from '@material-ui/core/Link';
+import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { getAll, fetchPublished } from '../../../redux/postsRedux';
@@ -38,44 +38,46 @@ class Component extends React.Component {
           <div>
             <div className={styles.announcement}>
               <h2 className={styles.annoucementTitle}>Would you like to announce something?</h2>
-              <Button href={`/post/add`}
-                variant="outlined"
-                color="default"
-                className={styles.btn}
+
+              <Link to={`/post/add`}
+                className={styles.addLink}
               >
                 <AddCircleOutlineIcon/>
-                <p>Add new announcement</p>
-              </Button>
+                <p className={styles.addContent}>Add new announcement</p>
+              </Link>
+
             </div>
             <div className={styles.card}>
               {posts.map(post => (
                 <Card key={post._id ? post._id : uniqid()}className={styles.cardItem}>
-                  <CardActionArea href={`/post/${post._id}`}>
-                    <CardMedia
-                      className={styles.image}
-                      image={post.photo}
-                      component="img"
-                    />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        {post.title}
-                      </Typography>
-                      <Typography variant="body2" color="textSecondary" component="p">
-                        {post.content}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                  <CardActions>
-                    <IconButton aria-label="add to favorites">
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share">
-                      <ShareIcon />
-                    </IconButton>
-                    <Button size="small" color="primary">
-                    Learn More
-                    </Button>
-                  </CardActions>
+                  <Link to={`/post/${post._id}`} className={styles.cardLink}>
+                    <CardActionArea>
+                      <CardMedia
+                        className={styles.image}
+                        image={post.photo}
+                        component="img"
+                      />
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {post.title}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                          {post.content}
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
+                    <CardActions>
+                      <IconButton aria-label="add to favorites">
+                        <FavoriteIcon />
+                      </IconButton>
+                      <IconButton aria-label="share">
+                        <ShareIcon />
+                      </IconButton>
+                      <Button size="small" color="primary">
+                      Learn More
+                      </Button>
+                    </CardActions>
+                  </Link>
                 </Card>
               ))}
             </div>
@@ -84,9 +86,9 @@ class Component extends React.Component {
           <div>
             <div className={styles.announcement}>
               <h2 className={styles.annoucementTitle}>Would you like to announce something?</h2>
-              <Link color="inherit" href="https://google.com" className={styles.login}>
+              <Button href="https://google.com" className={styles.login}>
                 Sign in or create an account
-              </Link>
+              </Button>
             </div>
           </div>
         }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
 
-import Link from '@material-ui/core/Link';
+import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -21,7 +21,7 @@ const Component = ({className, children}) => (
         <ErrorOutlineIcon className={styles.icon}/>
         <h1 className={styles.title}>Page not found</h1>
       </div>
-      <Link className={styles.link} href={`/`}>
+      <Link className={styles.link} to={`/`}>
         <ArrowBackIcon className={styles.arrow}/>
         <Typography className={styles.linkTitle}>Homepage</Typography>
       </Link>

@@ -8,7 +8,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import IconButton from '@material-ui/core/IconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiceD20 } from '@fortawesome/free-solid-svg-icons';
-import Link from '@material-ui/core/Link';
+import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
@@ -19,17 +20,17 @@ const Component = ({className, user}) => (
   <div className={clsx(className, styles.root)}>
     <AppBar className = {styles.appBar} position="static">
       <Toolbar className = {styles.menu}>
-        <Link href={`/`} className = {styles.home}>
+        <Link to={'/'} className={styles.home}>
           <FontAwesomeIcon icon={faDiceD20} className={styles.logo}/>
            B B O A R D
         </Link>
         {user.active === true
           ?
           <div>
-            <Link className={styles.announcements} href={`/`}>
+            <Link className={styles.announcements} to={`/`}>
             Announcements
             </Link>
-            <Link color="inherit" href={`/`} className={styles.login}>
+            <Link color="inherit" to={`/`} className={styles.login}>
               <IconButton
                 color="inherit"
               >
@@ -39,14 +40,14 @@ const Component = ({className, user}) => (
             </Link>
           </div>
           :
-          <Link color="inherit" href="https://google.com" className={styles.login}>
+          <Button color="inherit" href="https://google.com" className={styles.login}>
             <IconButton
               color="inherit"
             >
               <AccountCircle />
             </IconButton>
             Login
-          </Link>
+          </Button>
         }
       </Toolbar>
     </AppBar>
