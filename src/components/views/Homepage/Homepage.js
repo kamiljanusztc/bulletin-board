@@ -17,16 +17,17 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { getAll, fetchPublished } from '../../../redux/postsRedux';
+// import { getAll, fetchPublished } from '../../../redux/postsRedux';
+import { getAll } from '../../../redux/postsRedux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
 import styles from './Homepage.module.scss';
 
 class Component extends React.Component {
-  componentDidMount() {
-    const { fetchPublishedPosts } = this.props;
-    fetchPublishedPosts();
-  }
+  // componentDidMount() {
+  //   const { fetchPublishedPosts } = this.props;
+  //   fetchPublishedPosts();
+  // }
 
   render() {
     const {className, posts, user} = this.props;
@@ -101,7 +102,7 @@ class Component extends React.Component {
 
 Component.propTypes = {
   className: PropTypes.string,
-  fetchPublishedPosts: PropTypes.func,
+  // fetchPublishedPosts: PropTypes.func,
   posts: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   statusTrue: PropTypes.bool,
   state: PropTypes.bool,
@@ -128,11 +129,12 @@ const mapStateToProps = state => ({
   user: state.user,
 });
 
-const mapDispatchToProps = dispatch => ({
-  fetchPublishedPosts: () => dispatch(fetchPublished()),
-});
+// const mapDispatchToProps = dispatch => ({
+//   fetchPublishedPosts: () => dispatch(fetchPublished()),
+// });
 
-const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
+// const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
+const Container = connect(mapStateToProps)(Component);
 
 export {
   // Component as Homepage,

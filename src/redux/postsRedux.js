@@ -3,6 +3,7 @@ import Axios from 'axios';
 /* selectors */
 export const getAll = ({posts}) => posts.data;
 export const getPost = ({posts}) => posts.onePost;
+export const getPostById = ({posts}, id) => posts.data.find(post => post._id == id);
 export const getOnePost = ({posts}, id) => {
   posts.data.filter(post => post._id === id);
 };
@@ -60,6 +61,7 @@ export const fetchPost = (id) => {
     Axios
       .get(`http://localhost:8000/api/posts/${id}`)
       .then(res => {
+        console.log(res);
         dispatch(fetchOnePost(res.data));
       })
       .catch(err => {
@@ -170,4 +172,3 @@ export const reducer = (statePart = [], action = {}) => {
       return statePart;
   }
 };
-
