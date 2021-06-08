@@ -25,6 +25,7 @@ import {fetchAddPost, fetchEditPost, getPost, getLoading} from '../../../redux/p
 
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
+import { Post } from '../../views/Post/Post';
 
 
 class Component extends React.Component {
@@ -54,27 +55,30 @@ class Component extends React.Component {
   };
 
   componentDidMount() {
-    console.log('id', this.props.id);
-    console.log('isNewAnnounce', this.props.isNewAnnounce, this.props.postById._id);
     if (!this.props.isNewAnnounce && !this.props.editPost) {
+      console.log(this.state.post);
       this.props.history.push(`/post/${this.props.id}`);
     }
+    if(this.state.post._id !== undefined){
+      const serializedPost = JSON.stringify(this.state.post);
+      console.log(serializedPost);
+      window.localStorage.setItem('post', serializedPost);
+    }else{
+      const serializedStore = window.localStorage.getItem('post');
+      console.log(JSON.parse(serializedStore));
+      // this.setState({post: posObj});
+      this.state.post = JSON.parse(serializedStore);
+      console.log(this.state.post);
+      this.forceUpdate();
+    }
   }
-
 
   render() {
     const {className, user, postById, isNewAnnounce, addPost, editPost, loading } = this.props;
     const { post, transition, open } = this.state;
-    // console.log(post);
-    // if(post !== undefined){
-    //   const serializedPost = JSON.stringify(post);
-    //   console.log(serializedPost);
-    //   window.localStorage.setItem('post', serializedPost);
-    // }else{
-    //   const serializedStore = window.localStorage.getItem('store');
-    //   console.log(serializedStore);
-    //   if(serializedStore !== null) this.state.post = JSON.parse(serializedStore);
-    // }
+
+
+
 
 
     console.log('loading w formularzu', loading);
