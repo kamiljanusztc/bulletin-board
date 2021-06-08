@@ -121,21 +121,6 @@ Component.propTypes = {
   postById: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   fetchOnePost: PropTypes.func,
   user: PropTypes.object,
-  // post: PropTypes.arrayOf(
-  //   PropTypes.shape({
-  //     id: PropTypes.number,
-  //     title: PropTypes.string,
-  //     content: PropTypes.string,
-  //     datePublication: PropTypes.string,
-  //     dateLastUpdate: PropTypes.string,
-  //     email: PropTypes.string,
-  //     status: PropTypes.string,
-  //     image: PropTypes.string,
-  //     price: PropTypes.number,
-  //     phone: PropTypes.string,
-  //     location: PropTypes.string,
-  //   })
-  // ),
 };
 
 const mapStateToProps = (state, props) => ({

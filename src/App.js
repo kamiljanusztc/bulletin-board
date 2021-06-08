@@ -5,22 +5,18 @@ import PropTypes from 'prop-types';
 
 import { createMuiTheme, StylesProvider, ThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
-
 import { store } from './redux/store';
-
 import { MainLayout } from './components/layout/MainLayout/MainLayout';
 import { Homepage } from './components/views/Homepage/Homepage';
 import { Post } from './components/views/Post/Post';
 import { NotFound } from './components/views/NotFound/NotFound';
 import {Switcher} from './components/common/Switcher/Switcher';
 import { FormPost } from './components/common/FormPost/FormPost';
-
 const theme = createMuiTheme({
   palette: {
     primary: { main: '#2B4C6F' },
   },
 });
-
 const App = () => (
   <Provider store={store}>
     <BrowserRouter>

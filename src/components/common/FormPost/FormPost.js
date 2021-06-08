@@ -77,10 +77,6 @@ class Component extends React.Component {
     const {className, user, postById, isNewAnnounce, addPost, editPost, loading } = this.props;
     const { post, transition, open } = this.state;
 
-
-
-
-
     console.log('loading w formularzu', loading);
     console.log('isNewAnnounce', isNewAnnounce);
 
@@ -318,7 +314,6 @@ Component.propTypes = {
   addPost: PropTypes.func,
   editPost: PropTypes.func,
   loading: PropTypes.object,
-
   history: PropTypes.object,
   id: PropTypes.string,
 };
