@@ -2,37 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const mongoose = require('mongoose');
-// const passport = require('passport');
-// const GoogleStrategy = require('passport-google-oauth20').Strategy;
-// const session = require('express-session');
 
 const postsRoutes = require('./routes/posts.routes');
 
 const app = express();
-
-// configure passport provider options
-// passport.use(new GoogleStrategy({
-//   clientID: '1',
-//   clientSecret: 'S',
-//   callbackURL: 'http://localhost:8000/auth/callback',
-// }, (accessToken, refreshToken, profile, done) => {
-//   done(null, profile);
-// }));
-
-// // serialize user when saving to session
-// passport.serializeUser((user, serialize) => {
-//   serialize(null, user);
-// });
-
-// // deserialize user when reading from session
-// passport.deserializeUser((obj, deserialize) => {
-//   deserialize(null, obj);
-// });
-
-// /* PASSPORT */
-// app.use(session({ secret: 'anything' }));
-// app.use(passport.initialize());
-// app.use(passport.session());
 
 /* MIDDLEWARE */
 app.use(cors());
@@ -48,6 +21,7 @@ app.use('/api', (req, res) => {
 });
 
 /* REACT WEBSITE */
+app.use(express.static(path.join(__dirname, './uploads')));
 app.use(express.static(path.join(__dirname, '../build')));
 app.use('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'));

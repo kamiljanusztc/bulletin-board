@@ -16,19 +16,19 @@ const storage = multer.diskStorage({
 });
 let upload = multer({ storage });
 
-router.get('/posts', async (req, res) => {
-  try {
-    const result = await Post
-      .find({status: 'published'})
-      .select('author created title photo')
-      .sort({created: -1});
-    if(!result) res.status(404).json({ post: 'Not found' });
-    else res.json(result);
-  }
-  catch(err) {
-    res.status(500).json(err);
-  }
-});
+// router.get('/posts', async (req, res) => {
+//   try {
+//     const result = await Post
+//       .find({status: 'published'})
+//       .select('author created title photo')
+//       .sort({created: -1});
+//     if(!result) res.status(404).json({ post: 'Not found' });
+//     else res.json(result);
+//   }
+//   catch(err) {
+//     res.status(500).json(err);
+//   }
+// });
 
 router.get('/posts/:id', async (req, res) => {
   try {
@@ -42,6 +42,63 @@ router.get('/posts/:id', async (req, res) => {
     console.error(err);
   }
 });
+
+router.get('/posts', async (req, res) => {
+  try {
+    const result = await Post
+      .find({status: 'published'})
+      .select('author created title photo')
+      .sort({created: -1});
+    if(!result) res.status(404).json({ post: 'Not found' });
+    else res.json(result.map(post => {
+      console.log('post', post);
+      return ({
+        _id: post._id,
+        author: post.author,
+        created: post.created,
+        updated: post.updated,
+        status: post.status,
+        title: post.title,
+        text: post.text,
+        photo: `http://localhost:8000/${post.photo}`,
+        price: post.price,
+        phone: post.phone,
+        location: post.location,
+      });
+    }));
+  }
+  catch(err) {
+    res.status(500).json(err);
+  }
+});
+
+// router.get('/posts/:id', async (req, res) => {
+//   try {
+//     const result = await Post
+//       .findById(req.params.id);
+//     if(!result) res.status(404).json({ post: 'Not found' });
+//     else res.json(result.map(post => {
+//       console.log('post', post);
+//       return {
+//         _id: post._id,
+//         author: post.author,
+//         created: post.created,
+//         updated: post.updated,
+//         status: post.status,
+//         title: post.title,
+//         text: post.text,
+//         photo: `http://localhost:8000/${post.photo}`,
+//         price: post.price,
+//         phone: post.phone,
+//         location: post.location,
+//       };
+//     }));
+//   }
+//   catch(err) {
+//     res.status(500).json(err);
+//     console.error(err);
+//   }
+// });
 
 router.post('/posts/add', upload.single('file'), async (req, res) => {
   try {

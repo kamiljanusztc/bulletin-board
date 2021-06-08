@@ -14,6 +14,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Snackbar from '@material-ui/core/Snackbar';
 import PublishIcon from '@material-ui/icons/Publish';
+import { withRouter } from 'react-router';
+
 
 import clsx from 'clsx';
 import styles from './FormPost.module.scss';
@@ -51,10 +53,29 @@ class Component extends React.Component {
     this.setState({open: false});
   };
 
+  componentDidMount() {
+    console.log('id', this.props.id);
+    console.log('isNewAnnounce', this.props.isNewAnnounce, this.props.postById._id);
+    if (!this.props.isNewAnnounce && !this.props.editPost) {
+      this.props.history.push(`/post/${this.props.id}`);
+    }
+  }
+
 
   render() {
     const {className, user, postById, isNewAnnounce, addPost, editPost, loading } = this.props;
     const { post, transition, open } = this.state;
+    // console.log(post);
+    // if(post !== undefined){
+    //   const serializedPost = JSON.stringify(post);
+    //   console.log(serializedPost);
+    //   window.localStorage.setItem('post', serializedPost);
+    // }else{
+    //   const serializedStore = window.localStorage.getItem('store');
+    //   console.log(serializedStore);
+    //   if(serializedStore !== null) this.state.post = JSON.parse(serializedStore);
+    // }
+
 
     console.log('loading w formularzu', loading);
     console.log('isNewAnnounce', isNewAnnounce);
@@ -293,6 +314,9 @@ Component.propTypes = {
   addPost: PropTypes.func,
   editPost: PropTypes.func,
   loading: PropTypes.object,
+
+  history: PropTypes.object,
+  id: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
@@ -306,7 +330,8 @@ const mapDispatchToProps = (dispatch, props) => ({
   editPost: (post) => dispatch(fetchEditPost(post, props.id)),
 });
 
-const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
+// const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
+const Container = withRouter(connect(mapStateToProps, mapDispatchToProps)(Component));
 
 export {
   // Component as FormPost,
